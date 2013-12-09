@@ -17,10 +17,11 @@ Feature: berks contingent
       cookbook 'fake', '1.0.0'
       cookbook 'ekaf', '1.0.0'
       """
+    And I run `berks install`
     And I successfully run `berks contingent dep`
     Then the output should contain:
       """
-      Cookbooks in this Berksfile contingent upon dep:
+      Cookbooks in this Berksfile contingent upon 'dep':
         * ekaf (1.0.0)
         * fake (1.0.0)
       """
@@ -33,10 +34,11 @@ Feature: berks contingent
       """
       cookbook 'fake', '1.0.0'
       """
+    And I run `berks install`
     And I successfully run `berks contingent dep`
     Then the output should contain:
       """
-      There are no cookbooks contingent upon 'dep' defined in this Berksfile
+      There are no cookbooks in this Berksfile contingent upon 'dep'.
       """
 
 
@@ -45,5 +47,5 @@ Feature: berks contingent
     And I successfully run `berks contingent dep`
     Then the output should contain:
       """
-      There are no cookbooks contingent upon 'dep' defined in this Berksfile
+      There are no cookbooks in this Berksfile contingent upon 'dep'.
       """
