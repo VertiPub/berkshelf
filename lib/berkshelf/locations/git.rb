@@ -14,6 +14,9 @@ module Berkshelf
     def initialize(dependency, options = {})
       super
 
+      # TODO this is where we would add an option, something like versioned
+      # Then we would need a method that takes the dependency, the uri, and
+      # returns the tag that satisfies it.
       @uri      = options[:git]
       @branch   = options[:branch]
       @tag      = options[:tag]
