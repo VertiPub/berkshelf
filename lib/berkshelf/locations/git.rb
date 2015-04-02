@@ -23,9 +23,14 @@ module Berkshelf
       @ref      = options[:ref]
       @revision = options[:revision]
       @rel      = options[:rel]
+      @ver_tag  = options[:ver_tag]
+
+      if @ver_tag
+        semver = resolve_version_tag
+      end
 
       # The revision to parse
-      @rev_parse = options[:ref] || options[:branch] || options[:tag] || 'master'
+      @rev_parse = options[:ref] || options[:branch] || options[:tag] || semver || 'master'
     end
 
     # @see BaseLoation#installed?
