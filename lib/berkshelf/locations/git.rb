@@ -140,7 +140,8 @@ module Berkshelf
       refs = Hash[*refs]
 
       begin
-        ref = Semverse::Constraint.satisfy_best(verspec, versions.keys.reject{ |v| v =~ /{}$/ } )
+        ref = Semverse::Constraint.satisfy_best([constraint], versions.keys.reject{ |v| v =~ /{}$/ } ).to_s
+        return ref
       rescue Semverse::NoSolutionError
         return nil
       else
