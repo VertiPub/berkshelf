@@ -30,7 +30,7 @@ module Berkshelf
       end
 
       # The revision to parse
-      @rev_parse = options[:ref] || options[:branch] || options[:tag] || semver || 'master'
+      @rev_parse = options[:ref] || options[:branch] || options[:tag] || ver_tag || 'master'
     end
 
     # @see BaseLoation#installed?
