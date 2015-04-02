@@ -139,12 +139,12 @@ module Berkshelf
       refs = refs.split
       refs = Hash[*refs]
 
-      versions.each do | ver, ref |
-        begin
-          return refs[ref] if constraint.satisfies? ver
-        rescue Semverse::InvalidConstraintFormat, Semverse::InvalidVersionFormat
-        end
-
+      begin
+        ref = Semverse::Constraint.satisfy_best(verspec, versions.keys.reject{ |v| v =~ /{}$/ } )
+      rescue Semverse::NoSolutionError
+        return nil
+      else
+        return refs[ref]
       end
     end
 
