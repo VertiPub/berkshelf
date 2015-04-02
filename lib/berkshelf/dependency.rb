@@ -59,15 +59,14 @@ module Berkshelf
       @berksfile          = berksfile
       @name               = name
       @metadata           = options[:metadata]
+      # The coerce method automatically gives us a default constraint of
+      # >= 0.0.0 if the constraint is not set.
+      @version_constraint = Semverse::Constraint.coerce(options[:constraint])
       @location           = Location.init(self, options)
 
       if options[:locked_version]
         @locked_version = Semverse::Version.coerce(options[:locked_version])
       end
-
-      # The coerce method automatically gives us a default constraint of
-      # >= 0.0.0 if the constraint is not set.
-      @version_constraint = Semverse::Constraint.coerce(options[:constraint])
 
       add_group(options[:group]) if options[:group]
       add_group(:default) if groups.empty?
