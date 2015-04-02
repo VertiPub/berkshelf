@@ -126,7 +126,8 @@ module Berkshelf
     end
 
     def resolve_version_tag
-      verspec = @dependency.version_constraint
+      # This is a Semverse::constraint
+      constraint = @dependency.version_constraint
 
       refs = git %|ls-remote --tags "#{uri}"|
       versions = refs.gsub 'refs/tags/v', ''
