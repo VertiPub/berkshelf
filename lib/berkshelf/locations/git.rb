@@ -125,6 +125,30 @@ module Berkshelf
       out
     end
 
+    def resolve_version_tag
+      #A semantic version specifier
+      verspec = "~=3.4"
+
+      refs = git %|ls-remote --tags "#{uri}"|
+      versions = refs.gsub 'refs/tags/v', ''
+      versions.gsub! 'refs/tags/', ''
+      versions = versions.split
+      versions.reverse!
+      versions = Hash[*versions]
+
+      refs = refs.split
+      refs = Hash[*refs]
+
+      versions.each do | ver, ref |
+        begin
+          ver = Semantic::Version.new ver
+          puts ref, refs[ref] if ver.satisfies verspec
+        rescue ArgumentError
+        end
+
+      end
+    end
+
     protected
 
     # The short ref (if one was given).
