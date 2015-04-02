@@ -126,8 +126,7 @@ module Berkshelf
     end
 
     def resolve_version_tag
-      #A semantic version specifier
-      verspec = "~=3.4"
+      verspec = @dependency.version_constraint
 
       refs = git %|ls-remote --tags "#{uri}"|
       versions = refs.gsub 'refs/tags/v', ''
@@ -136,14 +135,13 @@ module Berkshelf
       versions.reverse!
       versions = Hash[*versions]
 
-      refs = refs.split
-      refs = Hash[*refs]
+      #refs = refs.split
+      #refs = Hash[*refs]
 
       versions.each do | ver, ref |
         begin
-          ver = Semantic::Version.new ver
-          puts ref, refs[ref] if ver.satisfies verspec
-        rescue ArgumentError
+          return ref if verspec.satisfies ver
+        rescue Semverse::InvalidConstraintFormat, Semverse::InvalidVersionFormat
         end
 
       end
