@@ -23,10 +23,10 @@ module Berkshelf
       @ref      = options[:ref]
       @revision = options[:revision]
       @rel      = options[:rel]
-      @ver_tag  = options[:ver_tag]
+      @semver  = options[:semver]
 
-      if @ver_tag
-        semver = resolve_version_tag
+      if @semver
+        ver_tag = resolve_version_tag
       end
 
       # The revision to parse
