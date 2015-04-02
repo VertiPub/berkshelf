@@ -136,12 +136,12 @@ module Berkshelf
       versions.reverse!
       versions = Hash[*versions]
 
-      #refs = refs.split
-      #refs = Hash[*refs]
+      refs = refs.split
+      refs = Hash[*refs]
 
       versions.each do | ver, ref |
         begin
-          return ref if verspec.satisfies ver
+          return refs[ref] if verspec.satisfies ver
         rescue Semverse::InvalidConstraintFormat, Semverse::InvalidVersionFormat
         end
 
