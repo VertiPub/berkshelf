@@ -141,7 +141,7 @@ module Berkshelf
 
       versions.each do | ver, ref |
         begin
-          return refs[ref] if constraint.satisfies ver
+          return refs[ref] if constraint.satisfies? ver
         rescue Semverse::InvalidConstraintFormat, Semverse::InvalidVersionFormat
         end
 
