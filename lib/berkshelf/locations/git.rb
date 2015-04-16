@@ -133,11 +133,13 @@ module Berkshelf
       versions.reverse!
       versions = Hash[*versions]
 
+      puts versions.keys
+
       refs = refs.split
       refs = Hash[*refs]
 
       begin
-        ref = Semverse::Constraint.satisfy_best([constraint], versions.keys.reject{ |v| v =~ /{}$/ } ).to_s
+        ref = Semverse::Constraint.satisfy_best([constraint], versions.keys.select{ |v| v =~ /^(\d+)\.(\d+)\.(\d+)$/ } ).to_s
         return ref
       rescue Semverse::NoSolutionError
         return nil
