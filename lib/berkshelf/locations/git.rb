@@ -133,8 +133,6 @@ module Berkshelf
       versions.reverse!
       versions = Hash[*versions]
 
-      puts versions.keys
-
       refs = refs.split
       refs = Hash[*refs]
 
